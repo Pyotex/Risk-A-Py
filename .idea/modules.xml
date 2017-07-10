@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RiskGame-master.iml" filepath="$PROJECT_DIR$/.idea/RiskGame-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/RiskAPy.iml" filepath="$PROJECT_DIR$/.idea/RiskAPy.iml" />
     </modules>
   </component>
 </project>
