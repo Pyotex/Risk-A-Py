@@ -27,9 +27,6 @@ class Player:
         if self.game.start_phase:
             print(self.__str__() + " Still in start phase")
             free = self.game.getFreeTerritories()
-            if not free:
-                self.game.start_phase = False
-                return
             territory = free[randint(0, len(free) - 1)]
             territory.owner = self
             self.territories.append(territory)
@@ -37,6 +34,8 @@ class Player:
         else:
             print(self.__str__() + " Woo attacking")
             attack_terrs = self.getTerritoriesForAttack()
+            if not attack_terrs:
+                return
             territory = attack_terrs[randint(0, len(attack_terrs) - 1)]
             won = self.game.attackTerritory(self, territory)
             if won:

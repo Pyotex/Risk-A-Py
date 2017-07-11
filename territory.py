@@ -6,3 +6,8 @@ class Territory:
 
     def __str__(self):
         return "Territory number: " + str(self.number)
+
+    def obtainTerritory(self, new_owner):
+        self.owner.territories.remove(self)
+        self.owner = new_owner
+        new_owner.territories.append(self)

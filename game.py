@@ -57,15 +57,13 @@ class Game:
         first, second = self.rollDice()
 
         if first >= second:
-            territory.owner.territories.remove(territory)
-            territory.owner = attacker
-            attacker.territories.append(territory)
+            territory.obtainTerritory(attacker)
             return True
 
         return False
 
 game = Game()
-showGraphs(game)
+#showGraphs(game)
 
 start = time.time()
 running = True
@@ -75,7 +73,8 @@ while running:
         running = False
         break
 
+    if not game.getFreeTerritories():
+        game.start_phase = False
+
     game.players[game.turn].play()
     game.turn = (game.turn + 1) % reg.player_count
-
-    time.sleep(0.2)
