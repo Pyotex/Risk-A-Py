@@ -4,7 +4,7 @@ import registry as reg
 class Player:
     def __init__(self, game, number):
         self.territories = []
-        self.troops = reg.init_troops
+        self.soldiers = reg.init_troops
         self.number = number
         self.game = game
 
@@ -19,27 +19,32 @@ class Player:
             for i in range(0, reg.territory_count):
                 if self.game.terr_conns[index][i] == True and index != i:
                     if self.game.territories[i] not in available and self.game.territories[i].owner != self:
-                        available.append(self.game.territories[i])
+                        available.append((self.game.territories[i], terr))
 
         return available
+
+    def getNewSoldiers(self):
+        new_soldiers = max(3, len(self.territories) // 3)
+        self.soldiers = self.soldiers + new_soldiers
+        print("Got new soldiers: " + str(new_soldiers) + ", territories: " + str(len(self.territories)))
 
     def play(self):
         if self.game.start_phase:
             print(self.__str__() + " Still in start phase")
             free = self.game.getFreeTerritories()
             territory = free[randint(0, len(free) - 1)]
-            territory.owner = self
-            self.territories.append(territory)
+            territory.obtainTerritory(self)
             print(self.__str__() + " Chose terr number: " + str(territory.number))
         else:
+            self.getNewSoldiers()
             print(self.__str__() + " Woo attacking")
             attack_terrs = self.getTerritoriesForAttack()
             if not attack_terrs:
                 return
-            territory = attack_terrs[randint(0, len(attack_terrs) - 1)]
-            won = self.game.attackTerritory(self, territory)
+            attack_terr, original_terr = attack_terrs[randint(0, len(attack_terrs) - 1)]
+            won = self.game.attackTerritory(self, original_terr, attack_terr)
             if won:
-                print(self.__str__() + " Won terr number: " + str(territory.number))
+                print(self.__str__() + " Won terr number: " + str(attack_terr.number))
 
             if len(self.territories) == reg.territory_count:
                 self.game.game_over = True
