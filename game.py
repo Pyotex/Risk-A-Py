@@ -2,6 +2,7 @@ from territory import Territory
 from graphs import showGraphs
 from player import Player
 import registry as reg
+import random
 import time
 
 class Game:
@@ -24,24 +25,57 @@ class Game:
                 self.terr_conns[i][i - 1] = True
                 self.terr_conns[i - 1][i] = True
 
+    #Gets all territories without the owner
     def getFreeTerritories(self):
         free = []
         for terr in self.territories:
             if terr.owner is None:
                 free.append(terr)
+        if not free:
+            self.start_phase = False
+
         return free
 
+    #Gets all territories with whom the provided territory borders with
+    def getBorderTerritories(self, territory):
+        terrs = []
+        index = territory.number
+
+        for i in range(0, reg.territory_count):
+            if self.terr_conns[index][i] == True:
+                terrs.append(self.territories[i])
+
+        return terrs
+
+    def rollDice(self):
+        first = random.randint(1, 6)
+        second = random.randint(1, 6)
+
+        return first, second
+
+    def attackTerritory(self, attacker, territory):
+        first, second = self.rollDice()
+
+        if first >= second:
+            territory.owner.territories.remove(territory)
+            territory.owner = attacker
+            attacker.territories.append(territory)
+            return True
+
+        return False
 
 game = Game()
-#showGraphs(game)
+showGraphs(game)
 
 start = time.time()
 running = True
 
 while running:
-    if time.time() - start > 2 or game.game_over:
+    if game.game_over:
         running = False
         break
 
     game.players[game.turn].play()
     game.turn = (game.turn + 1) % reg.player_count
+
+    time.sleep(0.2)
