@@ -18,5 +18,7 @@ class Territory:
 
     def attackTerritory(self, attacker, from_territory):
         self.soldiers = self.soldiers - 1
-        if self.soldiers == 0:
+        if self.soldiers <= 0:
             self.obtainTerritory(attacker)
+            return self
+        return None

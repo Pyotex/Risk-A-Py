@@ -36,16 +36,10 @@ class Game:
 
         return free
 
-    # #Gets all territories with whom the provided territory borders with
-    # def getBorderTerritories(self, territory):
-    #     terrs = []
-    #     index = territory.number
-    #
-    #     for i in range(0, reg.territory_count):
-    #         if self.terr_conns[index][i] == True:
-    #             terrs.append(self.territories[i])
-    #
-    #     return terrs
+    #Gets all border territories
+    def getBorderTerritories(self, territory):
+        #TODO:Implement this function
+        pass
 
     def rollDice(self):
         first = random.randint(1, 6)
@@ -54,17 +48,13 @@ class Game:
         return first, second
 
     def attackTerritory(self, attacker, from_territory, attack_territory):
-        # if from_territory.soldiers < 2:
-        #     print("Not enough soldiers")
-        #     return False
-
         first, second = self.rollDice()
 
         if first >= second:
-            attack_territory.attackTerritory(attacker, from_territory)
-            return True
+            territory_won = attack_territory.attackTerritory(attacker, from_territory)
+            return True, territory_won
 
-        return False
+        return False, None
 
 game = Game()
 #showGraphs(game)
