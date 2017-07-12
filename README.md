@@ -1,2 +1,3 @@
 # RiskAPy
-Console version of Risk board game implemented in Python
+Petnica project:
+    Console version of Risk board game implemented in Python
