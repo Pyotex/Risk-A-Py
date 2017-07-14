@@ -9,6 +9,7 @@ import time
 class Game:
     def __init__(self):
         self.turn = 0
+        self.moves = 0
         self.players = []
         self.territories = []
         self.game_over = False
@@ -36,38 +37,28 @@ class Game:
 
     #Gets all border territories
     def getBorderTerritories(self, territory):
-        #TODO:Implement this function
+        #TODO:Implement getter for border territories
         pass
 
     def rollDice(self):
-        first = random.randint(1, 6)
-        second = random.randint(1, 6)
-
-        return first, second
-
-    def attackTerritory(self, attacker, from_territory, attack_territory):
-        first, second = self.rollDice()
-
-        if first >= second:
-            territory_won = attack_territory.attackTerritory(attacker, from_territory)
-            return True, territory_won
-
-        return False, None
+        #TODO:Implement dice roll
+        pass
 
 game = Game()
 showGraphs(game)
 
-start = time.time()
-running = False
+running = True
 
-#TODO:Break after winning or after n number of moves
 while running:
-    if game.game_over:
+    if not game.start_phase:
+        game.moves = game.moves + 1
+
+    if game.game_over or game.moves >= reg.max_moves:
         running = False
         break
 
-    if not game.getFreeTerritories():
-        game.start_phase = False
+    #This method already has a check if empty
+    game.getFreeTerritories()
 
     game.players[game.turn].play()
     game.turn = (game.turn + 1) % reg.player_count

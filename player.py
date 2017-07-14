@@ -1,5 +1,5 @@
-from random import randint
 import registry as reg
+import random
 
 class Player:
     def __init__(self, game, number):
@@ -28,19 +28,11 @@ class Player:
         self.soldiers = self.soldiers + new_soldiers
         print("Got new soldiers: " + str(new_soldiers) + ", territories: " + str(len(self.territories)))
 
-    def fortifyPosition(self, won_territory):
-        #TODO:Implement soldier regrouping
-        pass
-
-    def moveSoldiers(self):
-        #TODO:move soldiers to the territory from which you wish to attack
-        pass
-
     def startPhase(self):
         print(self.__str__() + " Still in start phase")
 
         free = self.game.getFreeTerritories()
-        territory = free[randint(0, len(free) - 1)]
+        territory = free[random.randint(0, len(free) - 1)]
         territory.obtainTerritory(self)
 
         print(self.__str__() + " Chose terr number: " + str(territory.number))
@@ -54,5 +46,11 @@ class Player:
         pass
 
     def play(self):
-        #TODO:Decide if attacking or defending
-        pass
+        if self.game.start_phase:
+            self.startPhase()
+
+        elif random.random() > 0.5:
+            self.attack()
+
+        else:
+            self.defend()
