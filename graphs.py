@@ -10,7 +10,7 @@ def showGraphs(game):
             if game.terr_conns[i][j] == True:
                 G.add_edge(game.territories[i], game.territories[j])
 
-    nx.draw_circular(G)
+    nx.draw(G)
     plt.matshow(game.terr_conns)
 
     plt.show()

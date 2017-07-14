@@ -3,6 +3,7 @@ from graphs import showGraphs
 from player import Player
 import registry as reg
 import random
+import utils
 import time
 
 class Game:
@@ -16,14 +17,11 @@ class Game:
         for i in range(0, reg.player_count):
             self.players.append(Player(self, i))
 
-        self.terr_conns = [[False for x in range(reg.territory_count)] for y in range(reg.territory_count)]
+        self.terr_conns = utils.generateMatrix()
 
         for i in range(0, reg.territory_count):
             self.territories.append(Territory(i))
             self.terr_conns[i][i] = True
-            if i != 0:
-                self.terr_conns[i][i - 1] = True
-                self.terr_conns[i - 1][i] = True
 
     #Gets all territories without the owner
     def getFreeTerritories(self):
@@ -57,11 +55,12 @@ class Game:
         return False, None
 
 game = Game()
-#showGraphs(game)
+showGraphs(game)
 
 start = time.time()
-running = True
+running = False
 
+#TODO:Break after winning or after n number of moves
 while running:
     if game.game_over:
         running = False

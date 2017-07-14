@@ -45,32 +45,14 @@ class Player:
 
         print(self.__str__() + " Chose terr number: " + str(territory.number))
 
+    def attack(self):
+        # TODO:Implement attacking
+        pass
+
+    def defend(self):
+        # TODO:Implement defending
+        pass
+
     def play(self):
-        if self.game.start_phase:
-            self.startPhase()
-        else:
-            self.getNewSoldiers()
-
-            attack_terrs = self.getTerritoriesForAttack()
-
-            if not attack_terrs:
-                return
-
-            print(self.__str__() + " Woo attacking")
-
-            attack_terr, original_terr = attack_terrs[randint(0, len(attack_terrs) - 1)]
-
-            if original_terr.soldiers < 2:
-                print("Not enough soldiers")
-                self.moveSoldiers()
-                return
-
-            won, won_territory = self.game.attackTerritory(self, original_terr, attack_terr)
-
-            if won:
-                print(self.__str__() + " Won terr number: " + str(attack_terr.number))
-                self.fortifyPosition(won_territory)
-
-            if len(self.territories) == reg.territory_count:
-                self.game.game_over = True
-                print(self.__str__() + " won yaaaaaaaaay")
+        #TODO:Decide if attacking or defending
+        pass
