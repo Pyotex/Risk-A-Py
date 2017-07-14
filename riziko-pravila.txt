@@ -1,20 +1,20 @@
-biras da li napadas ili branis
-odbrana dobijas tenkove
-napad ne dobijas tenkove
+biras da li napadas ili branis +
+odbrana dobijas tenkove +
+napad ne dobijas tenkove +
 ako pobedis svi tenkovi postanu tvoji
 ako izgubis svi tvoji postanu njegovi
 
-random rasporedjivanje
-ojacavas jake baze
-ojacavas slabe baze
-ojacavas baze blizu komsija
+random rasporedjivanje +
+ojacavas jake baze +
+ojacavas slabe baze +
+ojacavas baze blizu komsija +
 
 napad:
-slabe baze
-jake baze
+slabe baze +
+jake baze +
 
 verovatnoca napada
 
-broj osvojenih teritorija nakon n poteza
+broj osvojenih teritorija nakon n poteza +
 
-generisanje matrice susedstva
+generisanje matrice susedstva +

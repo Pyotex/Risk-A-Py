@@ -37,13 +37,38 @@ class Player:
 
         print(self.__str__() + " Chose terr number: " + str(territory.number))
 
+    def attackStrongTerritories(self):
+        #TODO:Implement strong territories attacking
+        pass
+
+    def attackWeakTerritories(self):
+        #TODO:Implement weak territories attacking
+        pass
+
     def attack(self):
         # TODO:Implement attacking
         print("attack")
         pass
 
+    def randomSoldierGrouping(self):
+        #TODO:Implement random soldier grouping
+        pass
+
+    def improveGoodTerritories(self):
+        #TODO:Implement good territories improvement
+        pass
+
+    def improveBadTerritories(self):
+        #TODO:Implement bad territories improvement
+        pass
+
+    def improveBorderTerritories(self):
+        #TODO:Implement border territories improvement
+        pass
+
+
     def defend(self):
-        # TODO:Implement defending
+        #TODO:Implement defending
         print("defend")
         pass
 
