@@ -22,7 +22,6 @@ class Game:
 
         for i in range(0, reg.territory_count):
             self.territories.append(Territory(i))
-            self.terr_conns[i][i] = True
 
     #Gets all territories without the owner
     def getFreeTerritories(self):
@@ -35,14 +34,26 @@ class Game:
 
         return free
 
-    #Gets all border territories
-    def getBorderTerritories(self, territory):
-        #TODO:Implement getter for border territories
-        pass
+    def rollDice(self, attacker_terr, defender_terr):
+        #Number of soldiers on both territories
+        attack_soldiers = attacker_terr.soldiers
+        defend_soldiers = defender_terr.soldiers
 
-    def rollDice(self):
-        #TODO:Implement dice roll
-        pass
+        #Rolling the required number of dices
+        attack_dices = [ random.randint(1, 6) for i in range(min(3, attack_soldiers - 1))]
+        defend_dices = [ random.randint(1, 6) for i in range(min(3, defend_soldiers - 1))]
+
+        #Sorting dices in descending order
+        attack_dices.sort(reverse=True)
+        defend_dices.sort(reverse=True)
+
+        for i in range(min(len(attack_dices), len(defend_dices))):
+            if attack_dices[i] > defend_dices[i]:
+                return True
+            elif defend_dices[i] > attack_dices[i]:
+                return False
+
+        self.rollDice(attacker_terr, defender_terr)
 
 game = Game()
 showGraphs(game)

@@ -17,7 +17,7 @@ class Player:
         for terr in self.territories:
             index = terr.number
             for i in range(0, reg.territory_count):
-                if self.game.terr_conns[index][i] == True and index != i:
+                if self.game.terr_conns[index][i] == True:
                     if self.game.territories[i] not in available and self.game.territories[i].owner != self:
                         available.append((self.game.territories[i], terr))
 
@@ -39,10 +39,12 @@ class Player:
 
     def attack(self):
         # TODO:Implement attacking
+        print("attack")
         pass
 
     def defend(self):
         # TODO:Implement defending
+        print("defend")
         pass
 
     def play(self):
@@ -53,4 +55,5 @@ class Player:
             self.attack()
 
         else:
+            self.getNewSoldiers()
             self.defend()
