@@ -60,10 +60,10 @@ class Player:
 
             attack_terr, original_terr = attack_terrs[randint(0, len(attack_terrs) - 1)]
 
-            if original_terr.soldiers < 2:
-                print("Not enough soldiers")
-                self.moveSoldiers()
-                return
+            # if original_terr.soldiers < 2:
+            #     print("Not enough soldiers")
+            #     self.moveSoldiers()
+            #     return
 
             won, won_territory = self.game.attackTerritory(self, original_terr, attack_terr)
 
