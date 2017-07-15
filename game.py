@@ -34,6 +34,26 @@ class Game:
 
         return free
 
+    def getConnectedTerritories(self, matrix, terr):
+        stack = []
+        stack.append(terr.number)
+
+        connected = []
+
+        while stack:
+            pos = stack.pop()
+
+            if pos not in connected and self.territories[pos].owner == terr.owner:
+                #Cause we don't want the terr to be in the list
+                if pos != terr.number:
+                    connected.append(pos)
+
+                for i in range(reg.territory_count):
+                    if matrix[pos][i] == True:
+                        stack.append(i)
+
+        return connected
+
     def rollDice(self, attacker_terr, defender_terr):
         #Number of soldiers on both territories
         attack_soldiers = attacker_terr.soldiers

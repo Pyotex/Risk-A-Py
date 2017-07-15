@@ -2,6 +2,7 @@ import registry as reg
 import random
 
 def getGraphComponent(matrix, start_terr):
+    #TODO:Fix bug with adding itself
     stack = []
     stack.append(start_terr)
 
@@ -11,6 +12,7 @@ def getGraphComponent(matrix, start_terr):
         pos = stack.pop()
 
         if pos not in connected:
+            #You have to include the start_terr itself because you're finding components...
             connected.append(pos)
 
             for i in range(reg.territory_count):
@@ -48,7 +50,6 @@ def generateMatrix(territories):
 
             adj_mat[j][i] = adj_mat[i][j]
 
-    #TODO:Implement flood fill for getting all components of a graph
     terrs = list(range(0, reg.territory_count))
 
     components = getAllGraphComponents(adj_mat)
