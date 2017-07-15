@@ -16,9 +16,9 @@ class Game:
         self.start_phase = True
 
         for i in range(0, reg.player_count):
-            self.players.append(Player(self, i))
+            self.players.append(Player(self, i, bool(random.randint(0, 1))))
 
-        self.terr_conns = utils.generateMatrix()
+        self.terr_conns = utils.generateMatrix(self.territories)
 
         for i in range(0, reg.territory_count):
             self.territories.append(Territory(i))
@@ -55,6 +55,15 @@ class Game:
 
         self.rollDice(attacker_terr, defender_terr)
 
+    def attackTerritory(self, attacker_terr, defender_terr):
+        won = self.rollDice(attacker_terr, defender_terr)
+
+        if won:
+            defender_terr.obtainTerritory(attacker_terr.owner)
+        else:
+            attacker_terr.obtainTerritory(defender_terr.owner)
+
+
 game = Game()
 showGraphs(game)
 
@@ -66,6 +75,8 @@ while running:
 
     if game.game_over or game.moves >= reg.max_moves:
         running = False
+        for player in game.players:
+            print(player.__str__() + ",agressive: " + str(player.aggressive) + " has: " + str(len(player.territories)))
         break
 
     #This method already has a check if empty
