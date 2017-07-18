@@ -31,7 +31,7 @@ def getAllGraphComponents(matrix):
 
         terrs = list(set(terrs) - set(component))
 
-    #print(len(components))
+    print("Number of components: " + str(len(components)))
     return components
 
 

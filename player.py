@@ -246,10 +246,8 @@ class Player:
             self.startPhase()
 
         else:
+            self.getNewSoldiers()
             self.regroupSoldiers()
+
             if random.random() > 0.5:
                 self.attack()
-
-            else:
-                self.getNewSoldiers()
-                self.regroupSoldiers()

@@ -23,6 +23,7 @@ class Game:
         for i in range(0, reg.territory_count):
             self.territories.append(Territory(i))
 
+
     #Gets all territories without the owner
     def getFreeTerritories(self):
         free = []
@@ -102,7 +103,7 @@ class Game:
                     if len(player.territories) > max:
                         max = len(player.territories)
                         best = player.number
-                        showGraphs(self)
+                        #showGraphs(self)
 
                 if not self.game_over:
                     for player in self.players:

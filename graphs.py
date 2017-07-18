@@ -22,6 +22,6 @@ def showGraphs(game):
                 G.add_edge(game.territories[i], game.territories[j])
 
     nx.draw_networkx(G, node_color=colors, labels=labels)
-    #plt.matshow(game.terr_conns)
+    plt.matshow(game.terr_conns)
 
     plt.show()
