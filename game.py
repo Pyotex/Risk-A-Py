@@ -43,16 +43,17 @@ class Game:
         while stack:
             pos = stack.pop()
 
-            if pos not in connected and self.territories[pos].owner == terr.owner:
+            if self.territories[pos] not in connected and self.territories[pos].owner == terr.owner:
                 #Cause we don't want the terr to be in the list
                 if pos != terr.number:
-                    connected.append(pos)
+                    connected.append(self.territories[pos])
 
                 for i in range(reg.territory_count):
                     if matrix[pos][i] == True:
                         stack.append(i)
 
         return connected
+
 
     def rollDice(self, attacker_terr, defender_terr):
         #Number of soldiers on both territories
@@ -73,7 +74,8 @@ class Game:
             elif defend_dices[i] > attack_dices[i]:
                 return False
 
-        self.rollDice(attacker_terr, defender_terr)
+        return False
+        #self.rollDice(attacker_terr, defender_terr)
 
     def attackTerritory(self, attacker_terr, defender_terr):
         won = self.rollDice(attacker_terr, defender_terr)
@@ -84,23 +86,31 @@ class Game:
             attacker_terr.obtainTerritory(defender_terr.owner)
 
 
-game = Game()
-showGraphs(game)
+    def gameLoop(self):
+        running = True
 
-running = True
+        while running:
+            if not self.start_phase:
+                self.moves = self.moves + 1
 
-while running:
-    if not game.start_phase:
-        game.moves = game.moves + 1
+            if self.game_over or self.moves >= reg.max_moves:
+                running = False
+                max = 0
+                best = -1
+                for player in self.players:
+                    if len(player.territories) > max:
+                        max = len(player.territories)
+                        best = player.number
 
-    if game.game_over or game.moves >= reg.max_moves:
-        running = False
-        for player in game.players:
-            print(player.__str__() + ",agressive: " + str(player.aggressive) + " has: " + str(len(player.territories)))
-        break
+                if not self.game_over:
+                    for player in self.players:
+                        print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
 
-    #This method already has a check if empty
-    game.getFreeTerritories()
+                return best, self.game_over
 
-    game.players[game.turn].play()
-    game.turn = (game.turn + 1) % reg.player_count
+            # This method already has a check if empty
+            self.getFreeTerritories()
+
+            self.players[self.turn].play()
+            self.turn = (self.turn + 1) % reg.player_count
+        return -1, False

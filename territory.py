@@ -7,13 +7,16 @@ class Territory:
         self.number = number
 
     def __str__(self):
-        return "Territory number: " + str(self.number)
+        return str(self.number)
 
     def obtainTerritory(self, new_owner):
         if self.owner:
             self.owner.territories.remove(self)
+            self.owner = new_owner
+            new_owner.territories.append(self)
 
-        self.owner = new_owner
-        self.soldiers = self.soldiers + 1
-        new_owner.soldiers = new_owner.soldiers - 1
-        new_owner.territories.append(self)
+        else:
+            self.owner = new_owner
+            self.soldiers = self.soldiers + 1
+            new_owner.soldiers = new_owner.soldiers - 1
+            new_owner.territories.append(self)

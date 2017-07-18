@@ -26,12 +26,12 @@ def getAllGraphComponents(matrix):
     components = []
 
     while len(terrs) != 0:
-        component = getGraphComponent(matrix, terrs[random.randint(0, len(terrs))])
+        component = getGraphComponent(matrix, terrs[random.randint(0, len(terrs) - 1)])
         components.append(component)
 
         terrs = list(set(terrs) - set(component))
 
-    print(len(components))
+    #print(len(components))
     return components
 
 
@@ -44,8 +44,12 @@ def generateMatrix(territories):
     #Generating a diagonally symmetrical matrix
     for i in range(0, reg.territory_count):
         for j in range(0, i):
-            adj_mat[i][j] = bool(random.randint(0, 1))
-            if adj_mat[i][j] == True:
+            rnd_bool = False
+
+            if random.random() < 0.06:
+                rnd_bool = True
+            adj_mat[i][j] = rnd_bool
+            if rnd_bool == True:
                 start_terr = i
 
             adj_mat[j][i] = adj_mat[i][j]
