@@ -91,6 +91,7 @@ class Game:
 
         while running:
             if not self.start_phase:
+                #showGraphs(self)
                 self.moves = self.moves + 1
 
             if self.game_over or self.moves >= reg.max_moves:
@@ -101,6 +102,7 @@ class Game:
                     if len(player.territories) > max:
                         max = len(player.territories)
                         best = player.number
+                        showGraphs(self)
 
                 if not self.game_over:
                     for player in self.players:

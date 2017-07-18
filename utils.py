@@ -59,9 +59,9 @@ def generateMatrix(territories):
     components = getAllGraphComponents(adj_mat)
 
     if len(components) > 1:
-        terr = components[0][random.randint(len(components[0]))]
-        for i in range(0, len(components) + 1):
-            second_terr = components[i][random.randint(len(components[i]))]
+        terr = components[0][random.randint(0, len(components[0]) - 1)]
+        for i in range(1, len(components)):
+            second_terr = components[i][random.randint(0, len(components[i]) - 1)]
             adj_mat[terr][second_terr] = True
             adj_mat[second_terr][terr] = True
 

@@ -1,6 +1,6 @@
 #Settings for one game party
 player_count = 8
-territory_count = player_count * 10
+territory_count = player_count * 5
 init_troops = territory_count // player_count
 
 max_moves = 10000
