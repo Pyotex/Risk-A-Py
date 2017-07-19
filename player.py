@@ -77,19 +77,13 @@ class Player:
 
 
     def randomSoldierGrouping(self):
-        print("random grouping")
         for terr in self.territories:
             soldiers_to_move = random.randint(0, self.soldiers)
             terr.soldiers += soldiers_to_move
             self.soldiers -= soldiers_to_move
 
-        print("exited first for loop")
-
         for terr in self.territories:
-            print("second loop")
             connected = self.game.getConnectedTerritories(self.game.terr_conns, terr)
-
-            print("anotha second loop")
 
             if not connected:
                 return
@@ -99,8 +93,6 @@ class Player:
 
             move_to.soldiers += soldiers_to_move
             terr.soldiers -= soldiers_to_move
-
-        print("exited second for loop")
 
     def calculateAverage(self):
         average = 0
@@ -197,7 +189,6 @@ class Player:
         return border_terrs
 
     def improveBorderTerritories(self):
-        #TODO:Implement border territories improvement
         border_terrs = self.getBorderTerritories()
 
         rest_of_terrs = list(set(self.territories) - set(border_terrs))
@@ -251,16 +242,13 @@ class Player:
 
 
         if self.game.start_phase:
-            print("start phase")
             self.startPhase()
 
         else:
 
             self.getNewSoldiers()
-            print(str(self.number) + " defence")
             self.regroupSoldiers()
 
 
             if random.random() > 0.5:
-                print("attacking")
                 self.attack()

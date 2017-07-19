@@ -2,7 +2,6 @@ import registry as reg
 import random
 
 def getGraphComponent(matrix, start_terr):
-    #TODO:Fix bug with adding itself
     stack = []
     stack.append(start_terr)
 
@@ -38,8 +37,6 @@ def getAllGraphComponents(matrix):
 def generateMatrix(territories):
     adj_mat = [[False for x in range(0, reg.territory_count)] for y in range(0, reg.territory_count)]
 
-    #Arguments for flood fill
-    start_terr = 0
 
     for i in range(0, reg.player_count):
         for j in range(i * 10, i * 10 + 10):
@@ -48,7 +45,6 @@ def generateMatrix(territories):
 
                 if random.random() < 0.5:
                     rnd_bool = True
-                    start_terr = j
 
                 adj_mat[j][k] = rnd_bool
                 adj_mat[k][j] = rnd_bool

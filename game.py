@@ -36,15 +36,12 @@ class Game:
         return free
 
     def getConnectedTerritories(self, matrix, terr):
-        print("start get connected terrs")
         stack = []
         stack.append(terr.number)
 
         connected = []
 
         while stack:
-            #TODO:Here's the infinite loop...
-            print("stack while loop")
             pos = stack.pop()
 
             if self.territories[pos] not in connected and self.territories[pos].owner == terr.owner:
@@ -52,9 +49,9 @@ class Game:
                 if pos != terr.number:
                     connected.append(self.territories[pos])
 
-                for i in range(reg.territory_count):
-                    if matrix[pos][i] == True:
-                        stack.append(i)
+                    for i in range(reg.territory_count):
+                        if matrix[pos][i] == True:
+                            stack.append(i)
 
         return connected
 
@@ -95,7 +92,7 @@ class Game:
 
         while running:
             if not self.start_phase:
-                #showGraphs(self)
+                showGraphs(self)
                 self.moves = self.moves + 1
 
             if self.game_over or self.moves >= reg.max_moves:
