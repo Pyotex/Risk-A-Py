@@ -199,15 +199,8 @@ class Player:
             # Gets all connected terrs
             all_connected = self.game.getConnectedTerritories(self.game.terr_conns, terr)
 
-<<<<<<< HEAD
-            # if original_terr.soldiers < 2:
-            #     print("Not enough soldiers")
-            #     self.moveSoldiers()
-            #     return
-=======
             if not all_connected:
                 return
->>>>>>> risk_2.0
 
             # List of good connected terrs
             border_connected = list(set(all_connected).intersection(set(rest_of_terrs)))
