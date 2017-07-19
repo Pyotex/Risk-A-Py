@@ -18,3 +18,12 @@ verovatnoca napada
 broj osvojenih teritorija nakon n poteza +
 
 generisanje matrice susedstva +
+
+dodavanje randoma
+
+istrebi jednog
+
+napadanje izmedju 0 i 4 puta
+
+genetski za raspodelu
+sistem za ocenjivanje

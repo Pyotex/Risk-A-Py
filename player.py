@@ -1,5 +1,6 @@
 import registry as reg
 import random
+from graphs import showGraphs
 
 class Player:
     def __init__(self, game, number, aggressive):
@@ -33,11 +34,12 @@ class Player:
         return available
 
     def getNewSoldiers(self):
-        new_soldiers = max(3, len(self.territories) // 3)
+        new_soldiers = int(pow(max(3, len(self.territories) // 3), 2))
         self.soldiers += new_soldiers
         #print("Got new soldiers: " + str(new_soldiers) + ", territories: " + str(len(self.territories)))
 
     def startPhase(self):
+        #TODO:Improve territory choosing
         #print(self.__str__() + " Still in start phase")
 
         free = self.game.getFreeTerritories()
@@ -189,7 +191,6 @@ class Player:
         return border_terrs
 
     def improveBorderTerritories(self):
-        #TODO:Implement border territories improvement
         border_terrs = self.getBorderTerritories()
 
         rest_of_terrs = list(set(self.territories) - set(border_terrs))
@@ -235,6 +236,8 @@ class Player:
             print(self.__str__() + " donezo" + ", move: " + str(self.game.moves))
             for player in self.game.players:
                 print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
+
+            showGraphs(self.game)
             return
 
         if len(self.territories) == reg.territory_count:
@@ -246,8 +249,10 @@ class Player:
             self.startPhase()
 
         else:
+
             self.getNewSoldiers()
             self.regroupSoldiers()
+
 
             if random.random() > 0.5:
                 self.attack()

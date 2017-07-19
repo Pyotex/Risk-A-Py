@@ -2,7 +2,6 @@ import registry as reg
 import random
 
 def getGraphComponent(matrix, start_terr):
-    #TODO:Fix bug with adding itself
     stack = []
     stack.append(start_terr)
 
@@ -34,35 +33,35 @@ def getAllGraphComponents(matrix):
     print("Number of components: " + str(len(components)))
     return components
 
-
-def generateMatrix(territories):
-    adj_mat = [[False for x in range(0, reg.territory_count)] for y in range(0, reg.territory_count)]
-
-    #Arguments for flood fill
-    start_terr = 0
-
-    #Generating a diagonally symmetrical matrix
-    for i in range(0, reg.territory_count):
-        for j in range(0, i):
-            rnd_bool = False
-
-            if random.random() < 0.06:
-                rnd_bool = True
-            adj_mat[i][j] = rnd_bool
-            if rnd_bool == True:
-                start_terr = i
-
-            adj_mat[j][i] = adj_mat[i][j]
-
-    terrs = list(range(0, reg.territory_count))
-
-    components = getAllGraphComponents(adj_mat)
-
+def connectComponents(components, adj_mat):
     if len(components) > 1:
         terr = components[0][random.randint(0, len(components[0]) - 1)]
         for i in range(1, len(components)):
             second_terr = components[i][random.randint(0, len(components[i]) - 1)]
             adj_mat[terr][second_terr] = True
             adj_mat[second_terr][terr] = True
+
+
+def generateMatrix(territories):
+    adj_mat = [[False for x in range(0, reg.territory_count)] for y in range(0, reg.territory_count)]
+
+    #Stands for terrs per player
+    tpp = reg.terrs_per_player
+
+    for i in range(0, reg.player_count):
+        for j in range(i * tpp, i * tpp + tpp):
+            for k in range(i * tpp, i * tpp + tpp):
+                rnd_bool = False
+
+                if random.random() < reg.connection_factor:
+                    rnd_bool = True
+
+                adj_mat[j][k] = rnd_bool
+                adj_mat[k][j] = rnd_bool
+
+
+    components = getAllGraphComponents(adj_mat)
+
+    connectComponents(components, adj_mat)
 
     return adj_mat

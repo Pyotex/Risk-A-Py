@@ -49,9 +49,9 @@ class Game:
                 if pos != terr.number:
                     connected.append(self.territories[pos])
 
-                for i in range(reg.territory_count):
-                    if matrix[pos][i] == True:
-                        stack.append(i)
+                    for i in range(reg.territory_count):
+                        if matrix[pos][i] == True:
+                            stack.append(i)
 
         return connected
 
@@ -103,13 +103,13 @@ class Game:
                     if len(player.territories) > max:
                         max = len(player.territories)
                         best = player.number
-                        #showGraphs(self)
+                        showGraphs(self)
 
                 if not self.game_over:
                     for player in self.players:
                         print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
 
-                return best, self.game_over
+                return best, self.game_over, self.moves
 
             # This method already has a check if empty
             self.getFreeTerritories()
