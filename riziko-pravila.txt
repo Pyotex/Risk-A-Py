@@ -1,0 +1,29 @@
+biras da li napadas ili branis +
+odbrana dobijas tenkove +
+napad ne dobijas tenkove +
+ako pobedis svi tenkovi postanu tvoji
+ako izgubis svi tvoji postanu njegovi
+
+random rasporedjivanje +
+ojacavas jake baze +
+ojacavas slabe baze +
+ojacavas baze blizu komsija +
+
+napad:
+slabe baze +
+jake baze +
+
+verovatnoca napada
+
+broj osvojenih teritorija nakon n poteza +
+
+generisanje matrice susedstva +
+
+dodavanje randoma
+
+istrebi jednog
+
+napadanje izmedju 0 i 4 puta
+
+genetski za raspodelu
+sistem za ocenjivanje
