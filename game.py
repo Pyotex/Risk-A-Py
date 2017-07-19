@@ -92,7 +92,7 @@ class Game:
 
         while running:
             if not self.start_phase:
-                showGraphs(self)
+                #showGraphs(self)
                 self.moves = self.moves + 1
 
             if self.game_over or self.moves >= reg.max_moves:
@@ -103,13 +103,13 @@ class Game:
                     if len(player.territories) > max:
                         max = len(player.territories)
                         best = player.number
-                        #showGraphs(self)
+                        showGraphs(self)
 
                 if not self.game_over:
                     for player in self.players:
                         print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
 
-                return best, self.game_over
+                return best, self.game_over, self.moves
 
             # This method already has a check if empty
             self.getFreeTerritories()
