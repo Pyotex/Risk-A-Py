@@ -36,12 +36,15 @@ class Game:
         return free
 
     def getConnectedTerritories(self, matrix, terr):
+        print("start get connected terrs")
         stack = []
         stack.append(terr.number)
 
         connected = []
 
         while stack:
+            #TODO:Here's the infinite loop...
+            print("stack while loop")
             pos = stack.pop()
 
             if self.territories[pos] not in connected and self.territories[pos].owner == terr.owner:

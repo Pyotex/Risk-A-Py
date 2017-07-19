@@ -41,18 +41,30 @@ def generateMatrix(territories):
     #Arguments for flood fill
     start_terr = 0
 
+    for i in range(0, reg.player_count):
+        for j in range(i * 10, i * 10 + 10):
+            for k in range(i * 10, i * 10 + 10):
+                rnd_bool = False
+
+                if random.random() < 0.5:
+                    rnd_bool = True
+                    start_terr = j
+
+                adj_mat[j][k] = rnd_bool
+                adj_mat[k][j] = rnd_bool
+
     #Generating a diagonally symmetrical matrix
-    for i in range(0, reg.territory_count):
-        for j in range(0, i):
-            rnd_bool = False
-
-            if random.random() < 0.06:
-                rnd_bool = True
-            adj_mat[i][j] = rnd_bool
-            if rnd_bool == True:
-                start_terr = i
-
-            adj_mat[j][i] = adj_mat[i][j]
+    # for i in range(0, reg.territory_count):
+    #     for j in range(0, i):
+    #         rnd_bool = False
+    #
+    #         if random.random() < 0.06:
+    #             rnd_bool = True
+    #         adj_mat[i][j] = rnd_bool
+    #         if rnd_bool == True:
+    #             start_terr = i
+    #
+    #         adj_mat[j][i] = adj_mat[i][j]
 
     terrs = list(range(0, reg.territory_count))
 
@@ -65,4 +77,6 @@ def generateMatrix(territories):
             adj_mat[terr][second_terr] = True
             adj_mat[second_terr][terr] = True
 
+    print("done generating")
+    components = getAllGraphComponents(adj_mat)
     return adj_mat
