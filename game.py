@@ -15,8 +15,6 @@ class Game:
         self.game_over = False
         self.start_phase = True
 
-
-        #Spawning players
         for i in range(0, reg.player_count):
             self.players.append(Player(self, i, bool(random.randint(0, 1))))
 
