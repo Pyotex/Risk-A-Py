@@ -1,6 +1,6 @@
 #Settings for one game party
-player_count = 8
-terrs_per_player = 10
+player_count = 2
+terrs_per_player = 4
 
 territory_count = player_count * terrs_per_player
 init_troops = territory_count // player_count
