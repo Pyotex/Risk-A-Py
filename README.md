@@ -1,3 +1,3 @@
 # Risk a Py
-Petnica project:
+IS Petnica project:
     Console version of Risk board game implemented in Python
