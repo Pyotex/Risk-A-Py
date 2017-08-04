@@ -1,5 +1,3 @@
-import registry as reg
-
 class Territory:
     def __init__(self, number):
         self.owner = None

@@ -1,4 +1,4 @@
-import registry as reg
+from utility import registry as reg
 import random
 
 def getGraphComponent(matrix, start_terr):
@@ -42,7 +42,7 @@ def connectComponents(components, adj_mat):
             adj_mat[second_terr][terr] = True
 
 
-def generateMatrix(territories):
+def generateMatrix():
     adj_mat = [[False for x in range(0, reg.territory_count)] for y in range(0, reg.territory_count)]
 
     #Stands for terrs per player

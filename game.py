@@ -1,30 +1,19 @@
+from utility import utils, registry as reg
 from territory import Territory
-from graphs import showGraphs
 from player import Player
-import registry as reg
 import random
-import utils
-import time
 
 class Game:
     def __init__(self):
         self.turn = 0
         self.moves = 0
-        self.players = []
-        self.territories = []
+        self.players = [Player(self, i, bool(random.randint(0, 1))) for i in range(0, reg.player_count)]
+        self.territories = [Territory(i) for i in range(0, reg.territory_count)]
         self.game_over = False
         self.start_phase = True
+        self.terr_conns = utils.generateMatrix()
 
-        for i in range(0, reg.player_count):
-            self.players.append(Player(self, i, bool(random.randint(0, 1))))
-
-        self.terr_conns = utils.generateMatrix(self.territories)
-
-        for i in range(0, reg.territory_count):
-            self.territories.append(Territory(i))
-
-
-    #Gets all territories without the owner
+    # Gets all territories without the owner
     def getFreeTerritories(self):
         free = []
         for terr in self.territories:
@@ -35,6 +24,7 @@ class Game:
 
         return free
 
+    # Gets all territories connected to the provided territory
     def getConnectedTerritories(self, matrix, terr):
         stack = []
         stack.append(terr.number)
@@ -55,7 +45,7 @@ class Game:
 
         return connected
 
-
+    # Fair dice roll
     def rollDice(self, attacker_terr, defender_terr):
         #Number of soldiers on both territories
         attack_soldiers = attacker_terr.soldiers
@@ -80,6 +70,7 @@ class Game:
         # TODO:Maybe, just maybe, fix this shit?
         #self.rollDice(attacker_terr, defender_terr)
 
+    # Rolls the dice and if successful the attacker gets the territory
     def attackTerritory(self, attacker_terr, defender_terr):
         won = self.rollDice(attacker_terr, defender_terr)
 
@@ -88,35 +79,26 @@ class Game:
         else:
             attacker_terr.obtainTerritory(defender_terr.owner)
 
+    # Gets the winner or the player(s) with the most territories
+    def getBestPlayers(self):
+        pass
 
+
+    # Main game loop
     def gameLoop(self):
         running = True
 
         while running:
+            # TODO: Make it prettier
             if self.start_phase:
-                # This method already has a check if empty
                 self.getFreeTerritories()
 
-            else:
-                #showGraphs(self)
-                self.moves = self.moves + 1
+            if not self.start_phase:
+                self.moves += 1
 
-                if self.game_over or self.moves >= reg.max_moves:
+                if self.moves >= reg.max_moves or self.game_over:
                     running = False
-                    max = 0
-                    best = -1
-                    for player in self.players:
-                        if len(player.territories) > max:
-                            max = len(player.territories)
-                            best = player.number
-                            #showGraphs(self)
-
-                    if not self.game_over:
-                        for player in self.players:
-                            print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
-
-                    return best, self.game_over, self.moves
+                    return self.getBestPlayers(), self.game_over, self.moves
 
             self.players[self.turn].play()
             self.turn = (self.turn + 1) % reg.player_count
-        return -1, False

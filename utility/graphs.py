@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
-import registry as reg
 import networkx as nx
+
+from utility import registry as reg
+
 
 def showAdjMatrix(game):
     plt.matshow(game.terr_conns)

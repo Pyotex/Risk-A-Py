@@ -5,7 +5,7 @@ terrs_per_player = 4
 territory_count = player_count * terrs_per_player
 init_troops = territory_count // player_count
 
-max_moves = 100000
+max_moves = 10
 
 #Chance for connecting two territories
 connection_factor = 0.5
