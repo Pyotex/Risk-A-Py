@@ -63,19 +63,21 @@ class Game:
 
         #Rolling the required number of dices
         attack_dices = [ random.randint(1, 6) for i in range(min(3, attack_soldiers - 1))]
-        defend_dices = [ random.randint(1, 6) for i in range(min(3, defend_soldiers - 1))]
+        defend_dices = [ random.randint(1, 6) for i in range(min(2, defend_soldiers - 1))]
 
         #Sorting dices in descending order
         attack_dices.sort(reverse=True)
         defend_dices.sort(reverse=True)
 
         for i in range(min(len(attack_dices), len(defend_dices))):
+            print(attack_dices[i], defend_dices[i])
             if attack_dices[i] > defend_dices[i]:
                 return True
             elif defend_dices[i] > attack_dices[i]:
                 return False
 
         return False
+        # TODO:Maybe, just maybe, fix this shit?
         #self.rollDice(attacker_terr, defender_terr)
 
     def attackTerritory(self, attacker_terr, defender_terr):
@@ -91,28 +93,29 @@ class Game:
         running = True
 
         while running:
-            if not self.start_phase:
+            if self.start_phase:
+                # This method already has a check if empty
+                self.getFreeTerritories()
+
+            else:
                 #showGraphs(self)
                 self.moves = self.moves + 1
 
-            if self.game_over or self.moves >= reg.max_moves:
-                running = False
-                max = 0
-                best = -1
-                for player in self.players:
-                    if len(player.territories) > max:
-                        max = len(player.territories)
-                        best = player.number
-                        showGraphs(self)
-
-                if not self.game_over:
+                if self.game_over or self.moves >= reg.max_moves:
+                    running = False
+                    max = 0
+                    best = -1
                     for player in self.players:
-                        print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
+                        if len(player.territories) > max:
+                            max = len(player.territories)
+                            best = player.number
+                            #showGraphs(self)
 
-                return best, self.game_over, self.moves
+                    if not self.game_over:
+                        for player in self.players:
+                            print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
 
-            # This method already has a check if empty
-            self.getFreeTerritories()
+                    return best, self.game_over, self.moves
 
             self.players[self.turn].play()
             self.turn = (self.turn + 1) % reg.player_count

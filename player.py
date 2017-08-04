@@ -49,6 +49,7 @@ class Player:
         #print(self.__str__() + " Chose terr number: " + str(territory.number))
 
     def attackTerritories(self, strong=False):
+        # TODO:Should only be able to attack if it has more than 1 soldier on from_terr
         attackable = self.getTerritoriesForAttack()
         chosen = None
         from_terr = None
@@ -237,22 +238,18 @@ class Player:
             for player in self.game.players:
                 print(player.__str__() + " has: " + str(len(player.territories)) + " territories")
 
-            showGraphs(self.game)
+            #showGraphs(self.game)
             return
 
         if len(self.territories) == reg.territory_count:
             self.game.game_over = True
             return
 
-
         if self.game.start_phase:
             self.startPhase()
 
         else:
-
             self.getNewSoldiers()
             self.regroupSoldiers()
 
-
-            if random.random() > 0.5:
-                self.attack()
+            self.attack()
