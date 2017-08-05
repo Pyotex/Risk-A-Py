@@ -1,4 +1,5 @@
 from utility import utils, registry as reg
+from utility.graphs import showGraphs
 from territory import Territory
 from player import Player
 import random
@@ -35,7 +36,7 @@ class Game:
             pos = stack.pop()
 
             if self.territories[pos] not in connected and self.territories[pos].owner == terr.owner:
-                #Cause we don't want the terr to be in the list
+                #Cause we don't want the provided terr to be in the list
                 if pos != terr.number:
                     connected.append(self.territories[pos])
 
@@ -89,6 +90,7 @@ class Game:
         running = True
 
         while running:
+            showGraphs(self)
             # TODO: Make it prettier
             if self.start_phase:
                 self.getFreeTerritories()

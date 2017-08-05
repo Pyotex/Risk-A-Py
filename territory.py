@@ -4,8 +4,8 @@ class Territory:
         self.soldiers = 0
         self.number = number
 
-    def __str__(self):
-        return str(self.number)
+    def __repr__(self):
+        return "Territory number: " + str(self.number)
 
     def obtainTerritory(self, new_owner):
         if self.owner:

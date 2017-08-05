@@ -5,10 +5,11 @@ class Player:
     def __init__(self, game, number, aggressive):
         self.territories = []
         self.soldiers = reg.init_troops
-        self.strategy = StrategyRandom(self)
         self.number = number
         self.game = game
         self.dead = False
+
+        self.strategy = StrategyRandom(self)
 
     def __repr__(self):
         return "Player number: " + str(self.number)
@@ -21,7 +22,11 @@ class Player:
 
     # Gets new soldiers based on territory count
     def getNewSoldiers(self):
-        pass
+        self.soldiers += max(3, len(self.territories))
+        print("Has " + str(len(self.territories)) + " territories, got " + str(max(3, len(self.territories))) + " new soldiers")
 
     def play(self):
+        if not self.game.start_phase:
+            self.getNewSoldiers()
+
         self.strategy.play()
