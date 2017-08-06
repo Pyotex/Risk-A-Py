@@ -14,15 +14,37 @@ class StrategyRandom(BaseStrategy):
 
         # Obtains the chosen territory
         chosen.obtainTerritory(self.player)
-        print(repr(self.player) + " chose " + repr(chosen))
 
     # Randomly attacks territories
     def attack(self):
-        print("attack")
+        attackable = self.getTerritoriesForAttack()
+        if not attackable:
+            return
+
+        chosen, from_terr = attackable[randint(0, len(attackable) - 1)]
+
+        self.game.attackTerritory(from_terr, chosen)
 
     # Randomly regroups soldiers between territories
     def regroupSoldiers(self):
-        print("regroup soldiers")
+        # Randomly places soldiers that were given at the beginning of the turn
+        for terr in self.player.territories:
+            soldiers_to_move = randint(0, self.player.soldiers)
+            terr.soldiers += soldiers_to_move
+            self.player.soldiers -= soldiers_to_move
+
+        # Moves a random number of soldiers from one terr to a random terr
+        for terr in self.player.territories:
+            connected = self.game.getConnectedTerritories(self.game.terr_conns, terr)
+
+            if not connected:
+                return
+
+            move_to = connected[randint(0, len(connected) - 1)]
+            soldiers_to_move = randint(0, terr.soldiers - 1)
+
+            move_to.soldiers += soldiers_to_move
+            terr.soldiers -= soldiers_to_move
 
     # Random, again...decides if it should attack or not
     def play(self):

@@ -30,7 +30,6 @@ def getAllGraphComponents(matrix):
 
         terrs = list(set(terrs) - set(component))
 
-    print("Number of components: " + str(len(components)))
     return components
 
 def connectComponents(components, adj_mat):

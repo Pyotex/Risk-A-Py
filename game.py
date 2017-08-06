@@ -61,7 +61,6 @@ class Game:
         defend_dices.sort(reverse=True)
 
         for i in range(min(len(attack_dices), len(defend_dices))):
-            print(attack_dices[i], defend_dices[i])
             if attack_dices[i] > defend_dices[i]:
                 return True
             elif defend_dices[i] > attack_dices[i]:
@@ -82,15 +81,28 @@ class Game:
 
     # Gets the winner or the player(s) with the most territories
     def getBestPlayers(self):
-        pass
+        players = []
+        max = -1
+        for player in self.players:
+            if len(player.territories) > max:
+                if players:
+                    players[0] = player
+                else:
+                    players.append(player)
 
+            if len(player.territories) == max:
+                players.append(player)
+
+            max = len(player.territories)
+
+        return players
 
     # Main game loop
     def gameLoop(self):
         running = True
 
         while running:
-            showGraphs(self)
+            #showGraphs(self)
             # TODO: Make it prettier
             if self.start_phase:
                 self.getFreeTerritories()
