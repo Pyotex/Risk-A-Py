@@ -26,7 +26,5 @@ class Player:
 
         self.strategy.play()
 
-        print(repr(self) + " : " + str(len(self.territories)))
-
         if len(self.territories) == reg.territory_count:
             self.game.game_over = True

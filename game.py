@@ -105,12 +105,13 @@ class Game:
     def gameLoop(self):
 
         while True:
-            showGraphs(self)
             # TODO: Make it prettier
             if self.start_phase:
                 self.getFreeTerritories()
 
             if not self.start_phase:
+                showGraphs(self)
+
                 if self.moves >= reg.max_moves or self.game_over:
                     return self.getBestPlayers(), self.game_over, self.moves
 

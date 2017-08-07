@@ -12,6 +12,7 @@ def showGraph(game):
     g = nx.Graph()
     g.add_nodes_from(game.territories)
 
+    colors = [terr.owner.number for terr in game.territories]
     soldiers = [str(terr.soldiers) for terr in game.territories]
     terr_numbers = [str(terr.number) for terr in game.territories]
     terr_owners = {}
@@ -33,7 +34,10 @@ def showGraph(game):
             if game.terr_conns[i][j]:
                 g.add_edge(game.territories[i], game.territories[j])
 
-    nx.draw_networkx(g, labels=labels)
+    if game.start_phase:
+        nx.draw_networkx(g, labels=labels)
+    else:
+        nx.draw_networkx(g, node_color=colors, labels=labels)
 
 
 def showGraphs(game):
