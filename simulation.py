@@ -10,6 +10,7 @@ for i in range(0, reg.max_repetition):
 
     if game_over:
         print(repr(players[0]) + " won after " + str(moves) + " moves!")
+        print(moves)
 
     else:
         for player in players:

@@ -1,9 +1,11 @@
 from utility import registry as reg
 import random
 
+
+# Gets all components of a graph
+# A graph component is a set of nodes which are all connected somehow
 def getGraphComponent(matrix, start_terr):
-    stack = []
-    stack.append(start_terr)
+    stack = [start_terr]
 
     connected = []
 
@@ -11,14 +13,15 @@ def getGraphComponent(matrix, start_terr):
         pos = stack.pop()
 
         if pos not in connected:
-            #You have to include the start_terr itself because you're finding components...
+            # You have to include the start_terr itself because you're finding components...
             connected.append(pos)
 
             for i in range(reg.territory_count):
-                if matrix[pos][i] == True:
+                if matrix[pos][i]:
                     stack.append(i)
 
     return connected
+
 
 def getAllGraphComponents(matrix):
     terrs = list(range(0, reg.territory_count))
@@ -32,6 +35,7 @@ def getAllGraphComponents(matrix):
 
     return components
 
+
 def connectComponents(components, adj_mat):
     if len(components) > 1:
         terr = components[0][random.randint(0, len(components[0]) - 1)]
@@ -44,7 +48,7 @@ def connectComponents(components, adj_mat):
 def generateMatrix():
     adj_mat = [[False for x in range(0, reg.territory_count)] for y in range(0, reg.territory_count)]
 
-    #Stands for terrs per player
+    # Stands for terrs per player
     tpp = reg.terrs_per_player
 
     for i in range(0, reg.player_count):
@@ -57,7 +61,6 @@ def generateMatrix():
 
                 adj_mat[j][k] = rnd_bool
                 adj_mat[k][j] = rnd_bool
-
 
     components = getAllGraphComponents(adj_mat)
 

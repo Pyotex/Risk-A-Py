@@ -1,8 +1,8 @@
 from .BaseStrategy import BaseStrategy
 from random import randint
 
-class StrategyRandom(BaseStrategy):
 
+class StrategyRandom(BaseStrategy):
     def __init__(self, player):
         super().__init__(player)
 

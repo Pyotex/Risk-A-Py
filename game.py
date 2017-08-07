@@ -4,14 +4,18 @@ from territory import Territory
 from player import Player
 import random
 
+
 class Game:
     def __init__(self):
-        self.turn = 0
-        self.moves = 0
-        self.players = [Player(self, i, bool(random.randint(0, 1))) for i in range(0, reg.player_count)]
-        self.territories = [Territory(i) for i in range(0, reg.territory_count)]
         self.game_over = False
         self.start_phase = True
+
+        self.turn = 0
+        self.moves = 0
+
+        self.players = [Player(self, i) for i in range(0, reg.player_count)]
+        self.territories = [Territory(i) for i in range(0, reg.territory_count)]
+
         self.terr_conns = utils.generateMatrix()
 
     # Gets all territories without the owner
@@ -27,8 +31,7 @@ class Game:
 
     # Gets all territories connected to the provided territory
     def getConnectedTerritories(self, matrix, terr):
-        stack = []
-        stack.append(terr.number)
+        stack = [terr.number]
 
         connected = []
 
@@ -36,27 +39,28 @@ class Game:
             pos = stack.pop()
 
             if self.territories[pos] not in connected and self.territories[pos].owner == terr.owner:
-                #Cause we don't want the provided terr to be in the list
+                # Cause we don't want the provided terr to be in the list
                 if pos != terr.number:
                     connected.append(self.territories[pos])
 
                     for i in range(reg.territory_count):
-                        if matrix[pos][i] == True:
+                        if matrix[pos][i]:
                             stack.append(i)
 
         return connected
 
     # Fair dice roll
-    def rollDice(self, attacker_terr, defender_terr):
-        #Number of soldiers on both territories
+    @staticmethod
+    def rollDice(attacker_terr, defender_terr):
+        # Number of soldiers on both territories
         attack_soldiers = attacker_terr.soldiers
         defend_soldiers = defender_terr.soldiers
 
-        #Rolling the required number of dices
-        attack_dices = [ random.randint(1, 6) for i in range(min(3, attack_soldiers - 1))]
-        defend_dices = [ random.randint(1, 6) for i in range(min(2, defend_soldiers - 1))]
+        # Rolling the required number of dices
+        attack_dices = [random.randint(1, 6) for i in range(min(3, attack_soldiers - 1))]
+        defend_dices = [random.randint(1, 6) for i in range(min(2, defend_soldiers - 1))]
 
-        #Sorting dices in descending order
+        # Sorting dices in descending order
         attack_dices.sort(reverse=True)
         defend_dices.sort(reverse=True)
 
@@ -68,7 +72,7 @@ class Game:
 
         return False
         # TODO:Maybe, just maybe, fix this shit?
-        #self.rollDice(attacker_terr, defender_terr)
+        # self.rollDice(attacker_terr, defender_terr)
 
     # Rolls the dice and if successful the attacker gets the territory
     def attackTerritory(self, attacker_terr, defender_terr):
@@ -82,37 +86,35 @@ class Game:
     # Gets the winner or the player(s) with the most territories
     def getBestPlayers(self):
         players = []
-        max = -1
+        max_terr_count = -1
         for player in self.players:
-            if len(player.territories) > max:
+            if len(player.territories) > max_terr_count:
                 if players:
                     players[0] = player
                 else:
                     players.append(player)
 
-            if len(player.territories) == max:
+            if len(player.territories) == max_terr_count:
                 players.append(player)
 
-            max = len(player.territories)
+            max_terr_count = len(player.territories)
 
         return players
 
     # Main game loop
     def gameLoop(self):
-        running = True
 
-        while running:
-            #showGraphs(self)
+        while True:
+            showGraphs(self)
             # TODO: Make it prettier
             if self.start_phase:
                 self.getFreeTerritories()
 
             if not self.start_phase:
-                self.moves += 1
-
                 if self.moves >= reg.max_moves or self.game_over:
-                    running = False
                     return self.getBestPlayers(), self.game_over, self.moves
+
+                self.moves += 1
 
             self.players[self.turn].play()
             self.turn = (self.turn + 1) % reg.player_count

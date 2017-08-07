@@ -27,3 +27,5 @@ napadanje izmedju 0 i 4 puta
 
 genetski za raspodelu
 sistem za ocenjivanje
+
+proveriti koliko prvobitno biranje teritorija utice na partiju

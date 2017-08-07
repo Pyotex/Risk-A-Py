@@ -1,8 +1,9 @@
 from strategies.StrategyRandom import StrategyRandom
 from utility import registry as reg
 
+
 class Player:
-    def __init__(self, game, number, aggressive):
+    def __init__(self, game, number):
         self.territories = []
         self.soldiers = reg.init_troops
         self.number = number
@@ -24,6 +25,8 @@ class Player:
             self.getNewSoldiers()
 
         self.strategy.play()
+
+        print(repr(self) + " : " + str(len(self.territories)))
 
         if len(self.territories) == reg.territory_count:
             self.game.game_over = True

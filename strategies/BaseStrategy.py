@@ -1,7 +1,7 @@
 from utility import registry as reg
 
-class BaseStrategy():
 
+class BaseStrategy:
     def __init__(self, player):
         self.player = player
         self.game = player.game
@@ -15,7 +15,7 @@ class BaseStrategy():
             if terr.soldiers > 1:
                 index = terr.number
                 for i in range(0, reg.territory_count):
-                    if self.game.terr_conns[index][i] == True:
+                    if self.game.terr_conns[index][i]:
                         if self.game.territories[i] not in available and self.game.territories[i].owner != self.player:
                             available.append((self.game.territories[i], terr))
 

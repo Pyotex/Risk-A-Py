@@ -12,7 +12,7 @@ class Territory:
             self.owner.territories.remove(self)
             self.owner = new_owner
             new_owner.territories.append(self)
-            #self.soldiers = 1
+            # self.soldiers = 1
 
         else:
             self.owner = new_owner
