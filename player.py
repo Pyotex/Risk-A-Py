@@ -21,6 +21,9 @@ class Player:
         self.soldiers += max(3, len(self.territories))
 
     def play(self):
+        if len(self.territories) == 0 and not self.game.start_phase:
+            return
+
         if not self.game.start_phase:
             self.getNewSoldiers()
 

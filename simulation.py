@@ -1,4 +1,4 @@
-from utility import registry as reg
+from utility import registry as reg, logging
 from game import Game
 import time
 
@@ -10,7 +10,10 @@ for i in range(0, reg.max_repetition):
 
     if game_over:
         print(repr(players[0]) + " won after " + str(moves) + " moves!")
+        logging.writeline(repr(players[0]) + " won after " + str(moves) + " moves!")
 
     else:
         for player in players:
             print(repr(player) + " has " + str(len(player.territories)) + " territories")
+
+logging.closeFile()
