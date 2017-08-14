@@ -1,5 +1,5 @@
 # Settings for one game party
-player_count = 8
+player_count = 4
 terrs_per_player = 10
 
 territory_count = player_count * terrs_per_player
