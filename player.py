@@ -24,9 +24,6 @@ class Player:
         if len(self.territories) == 0 and not self.game.start_phase:
             return
 
-        if not self.game.start_phase:
-            self.getNewSoldiers()
-
         self.strategy.play()
 
         if len(self.territories) == reg.territory_count:

@@ -32,3 +32,6 @@ class BaseStrategy:
                     break
 
         return border_terrs
+
+    def attack(self):
+        self.player.getNewSoldiers()
