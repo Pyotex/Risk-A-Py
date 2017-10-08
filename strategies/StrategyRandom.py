@@ -1,5 +1,5 @@
 from .BaseStrategy import BaseStrategy
-from random import randint
+from random import randint, random
 
 
 class StrategyRandom(BaseStrategy):
@@ -17,6 +17,8 @@ class StrategyRandom(BaseStrategy):
 
     # Randomly attacks territories
     def attack(self):
+        super(StrategyRandom, self).attack()
+
         attackable = self.getTerritoriesForAttack()
         if not attackable:
             return
@@ -52,4 +54,6 @@ class StrategyRandom(BaseStrategy):
             self.startPhase()
         else:
             self.regroupSoldiers()
-            self.attack()
+
+            if random() > 0.5:
+                self.attack()

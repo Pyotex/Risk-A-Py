@@ -4,6 +4,8 @@ import networkx as nx
 from utility import registry as reg
 
 
+# TODO: Preserve the position of the nodes
+
 def showAdjMatrix(game):
     plt.matshow(game.terr_conns)
 
