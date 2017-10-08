@@ -11,7 +11,8 @@ class Player:
         self.dead = False
 
         # Has to be after the self.game is set because the strategy requires the game instance
-        self.strategy = StrategyRandom(self)
+        #Eval is used for creating a class out of a string which is chosen from the array
+        self.strategy = eval(reg.strategies[number])(self)
 
     def __repr__(self):
         return "Player number: " + str(self.number)

@@ -24,6 +24,8 @@ dodavanje randoma
 istrebi jednog
 
 napadanje izmedju 0 i 4 puta
+    ako izgubis onda ti se oduzima trecina vojnika na toj teritoriji
+    ako su ti i dalje sanse za pobedu velike onda napadaj opet
 
 genetski za raspodelu
 sistem za ocenjivanje

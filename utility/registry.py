@@ -14,5 +14,7 @@ show_graph = False
 show_matrix = False
 
 # Simulation settings
-max_repetition = 1000
+max_repetition = 10
 out_file = 'sim_out.txt'
+
+strategies = ['StrategyRandom' for x in range(0, player_count)]
