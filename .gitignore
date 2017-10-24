@@ -105,3 +105,5 @@ ENV/
 
 #PyCharm
 .idea/
+/riskenv/
+/sim_out.txt
