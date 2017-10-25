@@ -21,6 +21,15 @@ class Player:
     def getNewSoldiers(self):
         self.soldiers += max(3, len(self.territories))
 
+    def averageSoldierCount(self):
+        average = 0
+        for terr in self.territories:
+            average += terr.soldiers
+
+        average = average / len(self.territories)
+
+        return average
+
     def play(self):
         if len(self.territories) == 0 and not self.game.start_phase:
             return

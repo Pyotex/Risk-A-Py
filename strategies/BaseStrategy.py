@@ -1,4 +1,6 @@
 from utility import registry as reg
+import operator
+import random
 
 
 class BaseStrategy:
@@ -32,6 +34,72 @@ class BaseStrategy:
                     break
 
         return border_terrs
+
+    def improveTerritories(self, good):
+        #Sanity check
+        if len(self.player.territories) == 0:
+            return
+
+        # Cuz i don't want to have two functions so i have to use this
+        compare_sign = operator.gt if good else operator.lt
+
+        average = self.player.averageSoldierCount()
+
+        # Short for 'above_below_average' because I'm using this for improving good and bad terrs
+        ab_average = []
+
+        for terr in self.player.territories:
+            if  compare_sign(terr.soldiers, average):
+                ab_average.append(terr)
+
+        if not ab_average:
+            return
+
+        rest_of_terrs = list(set(self.player.territories) - set(ab_average))
+
+        for terr in rest_of_terrs:
+            #Gets all connected terrs
+            all_connected = self.game.getConnectedTerritories(self.game.terr_conns, terr)
+
+            if not all_connected:
+                return
+
+            #List of good/bad connected terrs
+            gb_connected = list(set(all_connected).intersection(set(ab_average)))
+
+            if not gb_connected:
+                return
+
+            move_to = gb_connected[random.randint(0, len(gb_connected) - 1)]
+            soldiers_to_move = random.randint(0, terr.soldiers - 1)
+
+            move_to.soldiers += soldiers_to_move
+            terr.soldiers -= soldiers_to_move
+
+    def improveBorderTerritories(self):
+        border_terrs = self.getBorderTerritories()
+
+        rest_of_terrs = list(set(self.player.territories) - set(border_terrs))
+
+        for terr in rest_of_terrs:
+            # Gets all connected terrs
+            all_connected = self.game.getConnectedTerritories(self.game.terr_conns, terr)
+
+            if not all_connected:
+                return
+
+            # List of good connected terrs
+            border_connected = list(set(all_connected).intersection(set(rest_of_terrs)))
+
+            if not border_connected:
+                return
+
+            move_to = border_connected[random.randint(0, len(border_connected) - 1)]
+            soldiers_to_move = random.randint(0, terr.soldiers - 1)
+
+            move_to.soldiers += soldiers_to_move
+            terr.soldiers -= soldiers_to_move
+
 
     def attack(self):
         self.player.getNewSoldiers()
